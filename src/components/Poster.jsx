@@ -67,8 +67,9 @@ const Poster = ({
 		},
 
 		speaker: {
-			marginTop: "25%",
-			marginLeft: "5px",
+			position: "absolute",
+			left: "5px",
+			bottom: "50%",
 			lineHeight: 1.5,
 			color: "#49382c",
 			fontWeight: "bold"
