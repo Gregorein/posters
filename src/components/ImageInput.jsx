@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/joy"
 import { useState } from "react"
 
-const ImageInput = ({setImageUrl}) => {
+const ImageInput = ({setImageUrl, setImage}) => {
 	const [previewUrl, setPreviewUrl] = useState("")
 
 	const handleOnDrag = event => {
@@ -12,9 +12,10 @@ const ImageInput = ({setImageUrl}) => {
 		event.stopPropagation()
 
 		const imageFile = event.dataTransfer.files[0]
-
 		const url = URL.createObjectURL(imageFile)
+
 		setImageUrl && setImageUrl(url)
+		setImage && setImage(imageFile)
 		setPreviewUrl(url)
 	}
 
@@ -25,6 +26,8 @@ const ImageInput = ({setImageUrl}) => {
 				flexDirection: "column",
 				gap: 2,
 			}}
+			onDragOver={handleOnDrag}
+			onDrop={handleOnDrop}
 		>
 			{previewUrl && (
 				<Box
@@ -45,8 +48,6 @@ const ImageInput = ({setImageUrl}) => {
 					border: "4px dotted",
 					borderColor: "primary.500"
 				}}
-				onDragOver={handleOnDrag}
-				onDrop={handleOnDrop}
 			>
 				<Typography
 					color="primary"

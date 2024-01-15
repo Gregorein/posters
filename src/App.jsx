@@ -1,8 +1,9 @@
-import { Box, Button, DialogContent, DialogTitle, Divider,Drawer, FormLabel, Input, ModalClose, FormControl, Sheet } from "@mui/joy";
+import { Box, Button, DialogContent, DialogTitle, Divider, Drawer, FormLabel, Input, FormControl, Sheet, Textarea } from "@mui/joy";
 import Main from "./components/Main"
 import { Text, Check } from "lucide-react";
 import { useState } from "react";
 import ImageInput from "./components/ImageInput";
+import Poster from "./components/Poster";
 
 const App = () => {
 	const [drawerOpen, setDrawerOpen] = useState(false)
@@ -15,12 +16,16 @@ const App = () => {
 	const [speakerInfo, setSpeakerInfo] = useState("O prowadzącym")
 
 	const [imageUrl, setImageUrl] = useState("")
+	const [image, setImage] = useState(null)
 
 	const [description, setDescription] = useState("Opis rekolekcji")
 	const [locationInfo, setLocationInfo] = useState("Informacje o ośrodku")
 
-	const [url, setUrl] = useState("www.stronainternetowa.pl")
+	const [url, setUrl] = useState("http://www.stronainternetowa.pl")
 	const [phone, setPhone] = useState("+48 000 000 000")
+
+	
+
 
   return (
 		<Main>
@@ -39,145 +44,157 @@ const App = () => {
 				>
 					Edytuj plakat
 				</Button>
-				<Button
-					startDecorator={<Check />}
-					color="success"
-				>
-					Zapisz plakat
-				</Button>
 			</Box>
 			
 			<Divider />
 
+			<Poster
+				title={title}
+				subtitle={subtitle}
+				location={location}
+				date={date}
+				speaker={speaker}
+				speakerInfo={speakerInfo}
+				imageUrl={imageUrl}
+				image={image}
+				description={description}
+				locationInfo={locationInfo}
+				url={url}
+				phone={phone}
+			/>
+
 			<Drawer
 				open={drawerOpen}
 				onClose={() => setDrawerOpen(false)}
+				size="lg"
 			>
-				<ModalClose />
-				<DialogTitle>Edytuj plakat</DialogTitle>
-				<DialogContent
-					sx={{				
-						display: "flex",
-						flexDirection: "column",
-						gap: 2,
-						padding: 3
-					}}
-				>
-					<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
-						<FormControl>
-							<FormLabel>Tytuł</FormLabel>
-							<Input
-								placeholder="Tytuł plakatu"
-								value={title}
-								size="lg"
-								onChange={e => setTitle(e.target.value)}
-							/>
-						</FormControl>
-
-						<FormControl>
-							<FormLabel>Podtytuł</FormLabel>
-							<Input
-								placeholder="Podtytuł plakatu"
-								value={subtitle}
-								size="lg"
-								onChange={e => setSubtitle(e.target.value)}
-							/>
-						</FormControl>
-					</Sheet>
-
-					<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
-						<FormControl>
-							<FormLabel>Miejsce rekolekcji</FormLabel>
-							<Input
-								placeholder="Miejsce rekolekcji"
-								value={location}
-								onChange={e => setLocation(e.target.value)}
-							/>
-						</FormControl>
-
-						<FormControl>
-							<FormLabel>Data rekolekcji</FormLabel>
-							<Input
-								placeholder="Data rekolekcji"
-								value={date}
-								onChange={e => setDate(e.target.value)}
-							/>
-						</FormControl>
-					</Sheet>
-
-					<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
-						<FormControl>
-							<FormLabel>Prowadzący</FormLabel>
-							<Input
-								placeholder="Prowadzący"
-								value={speaker}
-								onChange={e => setSpeaker(e.target.value)}
-							/>
-						</FormControl>
-
-						<FormControl>
-							<FormLabel>O prowadzącym</FormLabel>
-							<Input
-								placeholder="O prowadzącym"
-								value={speakerInfo}
-								onChange={e => setSpeakerInfo(e.target.value)}
-							/>
-						</FormControl>
-					</Sheet>
-
-					<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
-						<ImageInput
-							setImageUrl={setImageUrl}
-						/>
-					</Sheet>
-
-					<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
-						<FormControl>
-							<FormLabel>Opis rekolekcji</FormLabel>
-							<Input
-								placeholder="Opis rekolekcji"
-								value={description}
-								onChange={e => setDescription(e.target.value)}
-							/>
-						</FormControl>
-
-						<FormControl>
-							<FormLabel>Informacje o ośrodku</FormLabel>
-							<Input
-								placeholder="Informacje o ośrodku"
-								value={locationInfo}
-								onChange={e => setLocationInfo(e.target.value)}
-							/>
-						</FormControl>
-					</Sheet>
-
-					<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
-						<FormControl>
-							<FormLabel>Adres internetowy strony</FormLabel>
-							<Input
-								placeholder="Adres internetowy strony"
-								value={url}
-								onChange={e => setUrl(e.target.value)}
-							/>
-						</FormControl>
-
-						<FormControl>
-							<FormLabel>Telefon kontaktowy</FormLabel>
-							<Input
-								placeholder="Telefon kontaktowy"
-								value={phone}
-								onChange={e => setPhone(e.target.value)}
-							/>
-						</FormControl>
-					</Sheet>
-
-					<Button
-						startDecorator={<Check />}
-						onClick={() => setDrawerOpen(false)}
+					<DialogTitle>Edytuj plakat</DialogTitle>
+					<DialogContent
+						sx={{				
+							display: "flex",
+							flexDirection: "column",
+							gap: 2,
+							padding: 3
+						}}
 					>
-						Zapisz zmiany
-					</Button>
-				</DialogContent>
+						<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
+							<FormControl>
+								<FormLabel>Tytuł</FormLabel>
+								<Input
+									placeholder="Tytuł plakatu"
+									value={title}
+									size="lg"
+									onChange={e => setTitle(e.target.value)}
+								/>
+							</FormControl>
+
+							<FormControl>
+								<FormLabel>Podtytuł</FormLabel>
+								<Input
+									placeholder="Podtytuł plakatu"
+									value={subtitle}
+									size="lg"
+									onChange={e => setSubtitle(e.target.value)}
+								/>
+							</FormControl>
+						</Sheet>
+
+						<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
+							<FormControl>
+								<FormLabel>Miejsce rekolekcji</FormLabel>
+								<Input
+									placeholder="Miejsce rekolekcji"
+									value={location}
+									onChange={e => setLocation(e.target.value)}
+								/>
+							</FormControl>
+
+							<FormControl>
+								<FormLabel>Data rekolekcji</FormLabel>
+								<Input
+									placeholder="Data rekolekcji"
+									value={date}
+									onChange={e => setDate(e.target.value)}
+								/>
+							</FormControl>
+						</Sheet>
+
+						<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
+							<FormControl>
+								<FormLabel>Prowadzący</FormLabel>
+								<Input
+									placeholder="Prowadzący"
+									value={speaker}
+									onChange={e => setSpeaker(e.target.value)}
+								/>
+							</FormControl>
+
+							<FormControl>
+								<FormLabel>O prowadzącym</FormLabel>
+								<Input
+									placeholder="O prowadzącym"
+									value={speakerInfo}
+									onChange={e => setSpeakerInfo(e.target.value)}
+								/>
+							</FormControl>
+						</Sheet>
+
+						<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
+							<ImageInput
+								setImageUrl={setImageUrl}
+								setImage={setImage}
+							/>
+						</Sheet>
+
+						<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
+							<FormControl>
+								<FormLabel>Opis rekolekcji</FormLabel>
+								<Textarea
+									minRows={3}
+									placeholder="Opis rekolekcji"
+									value={description}
+									onChange={e => setDescription(e.target.value)}
+								/>
+							</FormControl>
+
+							<FormControl>
+								<FormLabel>Informacje o ośrodku</FormLabel>
+								<Textarea
+									minRows={3}
+									placeholder="Informacje o ośrodku"
+									value={locationInfo}
+									onChange={e => setLocationInfo(e.target.value)}
+								/>
+							</FormControl>
+						</Sheet>
+
+						<Sheet variant="soft" sx={{padding: 1, borderRadius: 4}}>
+							<FormControl>
+								<FormLabel>Adres internetowy strony</FormLabel>
+								<Input
+									placeholder="Adres internetowy strony"
+									value={url}
+									onChange={e => setUrl(e.target.value)}
+								/>
+							</FormControl>
+
+							<FormControl>
+								<FormLabel>Telefon kontaktowy</FormLabel>
+								<Input
+									placeholder="Telefon kontaktowy"
+									value={phone}
+									onChange={e => setPhone(e.target.value)}
+								/>
+							</FormControl>
+						</Sheet>
+
+						<Button
+							startDecorator={<Check />}
+							onClick={() => setDrawerOpen(false)}
+						>
+							Zapisz zmiany
+						</Button>
+					</DialogContent>
 			</Drawer>
 		</Main>
   );
